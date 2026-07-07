@@ -5,16 +5,15 @@
 > **Answer:** I’d use a remote S3 backend with native state locking (`use_lockfile = true`) as our single source of truth to safely prevent race conditions, while ensuring persistence and security via S3 versioning, encryption, and a least-privilege IAM policy limiting access to the CI/CD role; for example, if we are using Terraform, the configuration looks like this:
 
 ```hcl
-> terraform {
->   backend "s3" {
->     bucket       = "my-fcmb-terraform-state"
->     key          = "prod/terraform.tfstate"
->     region       = "eu-west-1"
->     encrypt      = true         # Encryption at rest
->     use_lockfile = true         # Native S3 state locking (v1.10+)
->   }
-> }
-> 
+ terraform {
+   backend "s3" {
+     bucket       = "my-fcmb-terraform-state"
+     key          = "prod/terraform.tfstate"
+     region       = "eu-west-1"
+     encrypt      = true         # Encryption at rest
+     use_lockfile = true         # Native S3 state locking (v1.10+)
+   }
+ } 
 
 ```
 
@@ -67,12 +66,10 @@
 > **Answer:** The reason Terraform wants to destroy the VPC is because moving the code changed the resource's address in the state file, making Terraform think the old resource is gone and a new one is required. You can solve this without any downtime by using a `moved` block in your Terraform configuration, which explicitly maps the old resource address to the new module path. This updates your state file to reflect the new structure during the next plan, confirming the resource remains intact without triggering any destruction. Alternatively, you could use the `terraform state mv` command to manually update the state file, but the `moved` block is superior because it keeps the migration logic directly in your codebase for the rest of the team to see.
 
 ```hcl
-> moved {
->   from = aws_vpc.main
->   to   = module.vpc.aws_vpc.this
-> }
-> 
-
+ moved {
+   from = aws_vpc.main
+   to   = module.vpc.aws_vpc.this
+ }
 ```
 
 ### 9. Kafka & K8s (Storage)
