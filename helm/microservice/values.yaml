@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  # Injected by CI/CD pipeline (e.g. --set image.repository=ghcr.io/org/app)
+  # Injected by CI/CD pipeline (in the workflow --set image.repository=ghcr.io/org/app)
   repository: ""
   pullPolicy: IfNotPresent
   tag: "latest"
@@ -80,5 +80,5 @@ affinity: {}
 
 podDisruptionBudget:
   enabled: true
-  minAvailable: 1
+  minAvailable: 2
   # maxUnavailable: 1
