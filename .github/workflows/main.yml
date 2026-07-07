@@ -13,7 +13,7 @@ on:
 env:
   TF_VERSION: "1.9.8"
   HELM_VERSION: "3.16.2"
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-2
   IMAGE_NAME: microservice
 
 permissions:
@@ -47,7 +47,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file=ci.tfvars -out=tfplan
+        run: terraform plan -var-file=deploy.tfvars -out=tfplan
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
