@@ -41,9 +41,9 @@ module "vpc" {
   private_subnets = [for i, az in slice(data.aws_availability_zones.available.names, 0, 2) : cidrsubnet(var.vpc_cidr, 4, i)]
   public_subnets  = [for i, az in slice(data.aws_availability_zones.available.names, 0, 2) : cidrsubnet(var.vpc_cidr, 4, i + 2)]
 
-  enable_nat_gateway   = true
-  single_nat_gateway   = var.environment != "production"
-  
+  enable_nat_gateway = true
+  single_nat_gateway = var.environment != "production"
+
   enable_dns_hostnames = true
 
   public_subnet_tags = {
@@ -96,7 +96,7 @@ module "eks" {
   subnet_ids = module.vpc.private_subnets
 
   cluster_endpoint_public_access           = true
-    enable_cluster_creator_admin_permissions = true
+  enable_cluster_creator_admin_permissions = true
 
   eks_managed_node_groups = {
     default = {
@@ -104,8 +104,8 @@ module "eks" {
       min_size       = var.node_min_size
       max_size       = var.node_max_size
       desired_size   = var.node_desired_size
-      
-      capacity_type  = "SPOT"
+
+      capacity_type = "SPOT"
     }
   }
 
