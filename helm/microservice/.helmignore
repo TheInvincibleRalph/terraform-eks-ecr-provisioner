@@ -1,0 +1,20 @@
+# Patterns to ignore when building packages for this chart.
+.DS_Store
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.bzr-layout
+.bzr/checkout/
+.bzr/repository/
+.bzr/revisions/
+.idea/
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+.project
+.settings/
+.tmproj
+.vscode/
