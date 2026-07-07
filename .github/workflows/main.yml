@@ -130,7 +130,7 @@ jobs:
 
       - name: Helm Dry-Run Install
         run: |
-          helm install microservice helm/microservice \
+          helm template microservice helm/microservice \
             --namespace synthetic-helm \
             --create-namespace \
             --dry-run \
