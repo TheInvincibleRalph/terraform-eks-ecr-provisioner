@@ -5,10 +5,10 @@ This repository is built to provision a complete Amazon EKS and ECR environment 
 
 ## How the Repository is Organized
 
-- `**.github/workflows/**`: This folder conatins the GitHub Actions workflow that tests the Terraform code in the `terraform/` directory, builds the container, and simulates the Helm deployment.
-- `**app/**`: This contains a lightweight Python HTTP server (`main.py`). It acts as a synthetic workload, proving that the Kubernetes routing and Docker containerization work perfectly.
-- `**helm/microservice/**`: This holds the Kubernetes manifests. I used a dynamic `values.yaml` file so things like Pod Disruption Budgets, resource limits, and the specific image tags can be injected automatically by the pipeline, keeping the core templates completely generic.
-- `**terraform/**`: This folder contains the root AWS orchestration. It provisions a production-ready VPC, spins up the EKS cluster using the official AWS module, and consumes my custom module for the Elastic Container Registry (`modules/ecr/`).
+- `.github/workflows/`: This folder conatins the GitHub Actions workflow that tests the Terraform code in the `terraform/` directory, builds the container, and simulates the Helm deployment.
+- `app/`: This contains a lightweight Python HTTP server (`main.py`). It acts as a synthetic workload, proving that the Kubernetes routing and Docker containerization work perfectly.
+- `helm/microservice/`: This holds the Kubernetes manifests. I used a dynamic `values.yaml` file so things like Pod Disruption Budgets, resource limits, and the specific image tags can be injected automatically by the pipeline, keeping the core templates completely generic.
+- `terraform/`: This folder contains the root AWS orchestration. It provisions a production-ready VPC, spins up the EKS cluster using the official AWS module, and consumes my custom module for the Elastic Container Registry (`modules/ecr/`).
 
 ## Pipeline Implementation
 
